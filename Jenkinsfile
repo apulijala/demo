@@ -36,9 +36,10 @@ pipeline {
                             reportFiles: 'index.html', 
                             reportName: 'Jacaco Test report', 
                             reportTitles: 'Test Report'])
+                sh './gradlew test jacocoTestReport'
                 
             }
-            sh './gradlew test jacocoTestReport'
+            
             
         }
    }
