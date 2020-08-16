@@ -27,7 +27,6 @@ pipeline {
         
         stage("codecoverage") {
             steps {
-                
                 sh './gradlew build jacocoTestReport'
                 publishHTML([allowMissing: false, 
                             alwaysLinkToLastBuild: false, 
@@ -37,11 +36,16 @@ pipeline {
                             reportName: 'Jacaco Test report', 
                             reportTitles: 'Test Report'])
                 sh './gradlew test jacocoTestReport'
-                
             }
-            
-            
         }
+
+        stage("staticCodeCoverage") {
+            steps {
+                    sh './gradlew checkstyleMain'
+            }
+        }
+
+        
    }
 
 }
