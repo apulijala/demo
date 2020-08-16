@@ -3,7 +3,7 @@ pipeline {
     agent {
         label "my-gradle"
     }
-    
+
     triggers {
          pollSCM('* * * * *')
     }
@@ -12,6 +12,17 @@ pipeline {
         stage("pullfromscm") {
             steps {
                  git 'https://github.com/apulijala/demo.git'
+            }
+            post{
+                always{
+                    echo "Testing Post"
+                }
+                success{
+                    echo "Should send the email to the relavent team."
+                }
+                failure{
+                    echo "Should send the failure email to the relavent team."
+                }
             }
         }
         
