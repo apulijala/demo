@@ -3,6 +3,10 @@ pipeline {
     agent {
         label "my-gradle"
     }
+    
+    triggers {
+         pollSCM('* * * * *')
+    }
 
     stages {
         stage("pullfromscm") {
