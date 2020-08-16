@@ -1,6 +1,6 @@
 pipeline {
     
-    agent{
+    agent {
         label "my-gradle"
     }
 
@@ -27,9 +27,18 @@ pipeline {
         
         stage("codecoverage") {
             steps {
+                
                 sh './gradlew build jacocoTestReport'
-                sh './gradlew test jacocoTestReport'
+                publishHTML([allowMissing: false, 
+                            alwaysLinkToLastBuild: false, 
+                            keepAll: false, 
+                            reportDir: 'build/reports/jacoco/applicationCodeCoverageReport/html', 
+                            reportFiles: 'index.html', 
+                            reportName: 'Jacaco Test report', 
+                            reportTitles: 'Test Report'])
+                
             }
+            sh './gradlew test jacocoTestReport'
             
         }
    }
